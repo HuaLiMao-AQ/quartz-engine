@@ -1,5 +1,8 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { QuartzPluginData } from "./quartz/plugins/vfile"
+
+const isArticle = (page: QuartzPluginData) => page.slug !== "index"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -36,6 +39,19 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
         { Component: Component.ReaderMode() },
       ],
+    }),
+    Component.RecentNotes({
+      title: "最近文章",
+      limit: 5,
+      showTags: false,
+      filter: isArticle,
+    }),
+    Component.Explorer({
+      title: "全部文章",
+      folderDefaultState: "open",
+      folderClickBehavior: "collapse",
+      useSavedState: false,
+      filterFn: (node) => node.slugSegment !== "tags" && node.slugSegment !== "index",
     }),
   ],
   right: [
