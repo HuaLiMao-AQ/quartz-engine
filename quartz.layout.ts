@@ -8,7 +8,14 @@ const isArticle = (page: QuartzPluginData) => page.slug !== "index"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.RecentNotes({
+      title: "最近更新",
+      limit: 3,
+      showTags: false,
+      filter: isArticle,
+    }),
+  ],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",
@@ -30,22 +37,7 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
-      ],
-    }),
-    Component.RecentNotes({
-      title: "最近文章",
-      limit: 5,
-      showTags: false,
-      filter: isArticle,
-    }),
+    Component.Search(),
     Component.Explorer({
       title: "全部文章",
       folderDefaultState: "open",
@@ -55,6 +47,8 @@ export const defaultContentPageLayout: PageLayout = {
     }),
   ],
   right: [
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.TableOfContents()),
     Component.ConditionalRender({
       component: Component.Graph(),
       condition: (page: any) => {
@@ -64,7 +58,6 @@ export const defaultContentPageLayout: PageLayout = {
         return outgoing > 0
       },
     }),
-    Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
 }
@@ -74,15 +67,7 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-      ],
-    }),
+    Component.Search(),
   ],
-  right: [],
+  right: [Component.Darkmode()],
 }

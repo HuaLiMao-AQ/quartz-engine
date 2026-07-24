@@ -19,3 +19,86 @@
   letter-spacing: 0.04em;
   opacity: 0.9;
 }
+
+/* =========================================
+   UI/UX 深度定制 (Premium Glassmorphism & Animations)
+   ========================================= */
+
+/* 1. 整体排版优化 (呼吸感) */
+article {
+  line-height: 1.75;
+  letter-spacing: 0.015em;
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+}
+
+/* 2. 双向链接动态下划线 (悬浮展开特效) */
+a.internal {
+  text-decoration: none;
+  background-image: linear-gradient(transparent 70%, var(--highlight) 70%, var(--highlight) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  transition: background-size 0.3s ease, color 0.3s ease;
+  padding: 0 2px;
+  border-radius: 2px;
+  
+  &:hover {
+    background-size: 100% 100%;
+    color: var(--secondary);
+  }
+}
+
+/* 3. Glassmorphism (毛玻璃面板) */
+.popover,
+.search {
+  background: rgba(var(--light), 0.7) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--gray), 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+/* 侧边栏卡片悬浮动效 */
+.explorer ul li a,
+.recent-notes ul li a {
+  transition: transform 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  display: inline-block;
+}
+
+.explorer ul li a:hover,
+.recent-notes ul li a:hover {
+  transform: translateX(4px);
+  color: var(--secondary);
+}
+
+/* 4. 高级 Callout 样式定制 */
+.callout {
+  border-radius: 10px;
+  border-left: 4px solid var(--callout-color);
+  background: rgba(var(--callout-color), 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* 5. 黑暗模式下的发光特效 */
+[saved-theme="dark"] {
+  .page-title a {
+    text-shadow: 0 0 15px rgba(129, 140, 248, 0.5); /* 标题霓虹发光 */
+  }
+  
+  a.internal:hover {
+    text-shadow: 0 0 8px rgba(129, 140, 248, 0.6);
+  }
+}
